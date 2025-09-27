@@ -2,7 +2,7 @@ package Race.Decorator;
 
 import Race.RaceComponent;
 
-public class CategoryDecorator extends RaceDecorator{
+public class CategoryDecorator extends RaceDecorator {
     int category;
 
     public CategoryDecorator(RaceComponent decoratedRace) {
@@ -10,7 +10,7 @@ public class CategoryDecorator extends RaceDecorator{
     }
 
     public String getDescription(){
-        return "Category " + category + " Race";
+        return "Category " + category + " Race\n" + super.getDescription();
     }
 
     public double getCost(){
