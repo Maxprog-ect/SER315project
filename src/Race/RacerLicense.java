@@ -1,9 +1,10 @@
+package Race;
+
 import Users.Racer;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
-public class Race.RacerLicense {
+public class RacerLicense {
     private final String licenseID;
     private int category;
     private final LocalDate issueDate;
@@ -11,7 +12,7 @@ public class Race.RacerLicense {
     private final Racer racer;
 
 
-    public Race.RacerLicense(Racer racer){
+    public RacerLicense(Racer racer){
         this.racer = racer;
         licenseID = racer.getName()  + "_Kachow";
         issueDate = LocalDate.now();

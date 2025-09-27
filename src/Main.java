@@ -1,7 +1,7 @@
 import Race.BasicRace;
 import Race.Decorator.CategoryDecorator;
 import Race.Decorator.OfficialRaceDecorator;
-import Race.RaceComponent;
+import Race.RacerLicense;
 import Race.RegistrationNotifier;
 import Users.*;
 import java.util.Scanner;
@@ -38,7 +38,7 @@ public class Main {
             System.out.println("Do you need a license? (y/n)");
             String license = sc.nextLine();
             if (license.equalsIgnoreCase("y")) {
-                RacerLicense testLicense = new RacerLicense((Racer) testRacer);
+                RacerLicense testLicense = ((Racer)testRacer).setRacerLicense();
                 System.out.println(testLicense.getLicenseID() + " " + testLicense.getExpiryDate());
             }else if (license.equalsIgnoreCase("n")) {
                 System.out.println("Let's register for a race!");
@@ -52,7 +52,7 @@ public class Main {
         testRace.addRegistrationListener(new RegistrationNotifier());
 
         CategoryDecorator officialTestRace = new CategoryDecorator(new OfficialRaceDecorator(testRace));
-        officialTestRace.setCategory(4);
+        officialTestRace.setCategory(5);
 
         System.out.println(officialTestRace.getDescription());
 
@@ -60,6 +60,7 @@ public class Main {
         testRace.registerRacer((Racer) testRacer, officialTestRace.getCategory());
 
         // available spots
+        System.out.println("Available spots in Race:");
         System.out.println(officialTestRace.getAvailableSpots());
 
         sc.close();

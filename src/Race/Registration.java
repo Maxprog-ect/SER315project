@@ -1,6 +1,8 @@
 package Race;
 import Users.Racer;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 public class Registration {
@@ -35,6 +37,10 @@ public class Registration {
 
     public String getRegID() {
         return regID;
+    }
+
+    public LocalDate getRegDate() {
+        return regDate;
     }
 
     public Racer getRacer() {

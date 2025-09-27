@@ -5,6 +5,6 @@ public class RegistrationNotifier implements RegistrationListener {
     public void onRegistrationComplete(Registration registration) {
         System.out.println(registration.getRacer().getName()
                 + " has successfully registered with ID "
-                + registration.getRegID());
+                + registration.getRegID() + " on " + registration.getRegDate());
     }
 }

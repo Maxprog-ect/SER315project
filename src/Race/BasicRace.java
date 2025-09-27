@@ -68,16 +68,28 @@ public class BasicRace implements RaceComponent {
     }
 
     public void registerRacer(Racer racer, int category) {
-        if(racer.getCategory() != category){
-            System.out.println("Racer does not have correct category");
-        } else {
+        if(racer.getRacerLicense() == null){
+            System.out.println("ERROR: Racer does not have a license.");
+            return;
+        }else if(racer.getRacerLicense().checkLicenseValid() == -1) {
+            System.out.println("ERROR: License for Racer " + racer.getName() + " is invalid.");
+            return;
+        }
+
+        if (registeredRacers >= registrationLimit) {
+            System.out.println("ERROR: Cannot complete registration -- race is full.");
+            return;
+        }
+        if(racer.getCategory() != category) {
+            System.out.println("ERROR: Racer does not have correct category");
+            return;
+        }
             Registration newReg = new Registration(this, racer, category);
             newReg.processPayment();
             raceRegistration.put(newReg.getRegID(), newReg);
             trackRegistration();
 
             notifyRegistrationListeners(newReg);
-        }
     }
 
     public void trackRegistration(){

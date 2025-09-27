@@ -67,7 +67,7 @@ public class BasicRace implements RaceComponent {
         System.out.println("Race Started");
     }
 
-    public void registerRacer(Racer racer, int category, RacerLicense license) {
+    public void registerRacer(Racer racer, int category, Race.RacerLicense license) {
         if (license.checkLicenseValid() == -1) {
             System.out.println("ERROR: License for Racer " + racer.getName() + " is invalid.");
             return;

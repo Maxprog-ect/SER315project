@@ -1,10 +1,13 @@
 package Users;
+import Race.RacerLicense;
 
 public class Racer extends User {
+    private RacerLicense racerLicense;
     private int category;
     public Racer(String userID, String name, String email, String password) {
         super(userID, name, email, password);
         defaultCategory();
+        racerLicense = null;
     }
 
     public void setCategory(int category) {
@@ -22,5 +25,12 @@ public class Racer extends User {
         }else{
             setCategory(category-1);
         }
+    }
+    public RacerLicense setRacerLicense(){
+        racerLicense = new RacerLicense(this);
+        return racerLicense;
+    }
+    public RacerLicense getRacerLicense(){
+        return racerLicense;
     }
 }
