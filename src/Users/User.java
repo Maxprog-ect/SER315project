@@ -24,4 +24,8 @@ public abstract class User {
     public void logout() {}
 
     public void updateProfile(User user) {}
+
+    public String getName(){
+        return name;
+    }
 }

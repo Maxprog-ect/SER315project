@@ -8,6 +8,6 @@ public class RacerFactory implements UserFactory {
     }
     @Override
     public Racer createUser(String name, String email, String password) {
-        return new Racer("Racer" + id++, name, email, password);
+        return new Racer("Users.Racer" + id++, name, email, password);
     }
 }
