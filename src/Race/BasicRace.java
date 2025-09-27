@@ -68,12 +68,16 @@ public class BasicRace implements RaceComponent {
     }
 
     public void registerRacer(Racer racer, int category) {
-        Registration newReg = new Registration(this, racer, category);
-        newReg.processPayment();
-        raceRegistration.put(newReg.getRegID(), newReg);
-        trackRegistration();
+        if(racer.getCategory() != category){
+            System.out.println("Racer does not have correct category");
+        } else {
+            Registration newReg = new Registration(this, racer, category);
+            newReg.processPayment();
+            raceRegistration.put(newReg.getRegID(), newReg);
+            trackRegistration();
 
-        notifyRegistrationListeners(newReg);
+            notifyRegistrationListeners(newReg);
+        }
     }
 
     public void trackRegistration(){

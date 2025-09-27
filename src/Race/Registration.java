@@ -1,6 +1,6 @@
 package Race;
-
 import Users.Racer;
+
 import java.time.LocalDate;
 
 public class Registration {
@@ -25,6 +25,7 @@ public class Registration {
     }
 
     public String notifyRacer(){
+
         if (isPaid) {
             return regID + ": registration successful";
         } else {
