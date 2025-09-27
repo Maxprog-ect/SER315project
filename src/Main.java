@@ -1,6 +1,8 @@
-import Race.Decorator.RaceDecorator;
+import Race.BasicRace;
+import Race.Decorator.CategoryDecorator;
+import Race.Decorator.OfficialRaceDecorator;
+import Race.RaceComponent;
 import Users.*;
-import Race.*;
 import java.util.Scanner;
 
 public class Main {
@@ -13,9 +15,6 @@ public class Main {
         UserFactory racerFactory = new RacerFactory();
 
         User testRacer = racerFactory.createUser("John Doe", "Doe@yahoo.com", "password1234");
-        BasicRace testRace = new BasicRace();
-        testRace = new RaceDecorator(testRace);
-
 
         do {
             System.out.println();
@@ -32,8 +31,23 @@ public class Main {
         System.out.println("login successful");
 
         while (running) {
-
+           break;
         }
+        //license for racer
+        RacerLicense testLicense = new RacerLicense((Racer) testRacer);
+        System.out.println(testLicense.getLicenseID() + " " + testLicense.getExpiryDate());
+
+        //create race
+        BasicRace testRace = new BasicRace();
+        CategoryDecorator officialTestRace = new CategoryDecorator(new OfficialRaceDecorator(testRace));
+        officialTestRace.setCategory(4);
+        System.out.println(officialTestRace.getDescription());
+
+        //register for race
+        testRace.registerRacer((Racer) testRacer);
+        //available spots
+        System.out.println(officialTestRace.getAvailableSpots());
+        
 
     }
 }

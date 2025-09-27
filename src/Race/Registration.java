@@ -34,4 +34,7 @@ public class Registration {
         }
         return notifyRacer;
     }
+    public String getRegID() {
+        return regID;
+    }
 }

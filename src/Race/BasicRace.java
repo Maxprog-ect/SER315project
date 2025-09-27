@@ -1,24 +1,22 @@
 package Race;
 
 import Users.Racer;
-
-import java.time.LocalTime;
+import java.time.LocalDate;
+import java.util.HashMap;
 
 public class BasicRace implements RaceComponent{
     private final String raceID;
     private final String raceName;
     private final String raceType;
-    private final LocalTime raceDate;
+    private final LocalDate raceDate;
     private final int miles;
     private final int registrationLimit;
-    private final LocalTime lastRegistrationDate;
-    private boolean isOfficial;
-    private final int category;
+    private final LocalDate lastRegistrationDate;
     private int registeredRacers;
-    private Registration raceRegistration;
+    private HashMap<String, Registration> raceRegistration;
 
-    public BasicRace(String raceID, String raceName, String raceType, LocalTime raceDate, int miles,
-                     int registrationLimit, LocalTime lastRegistrationDate, boolean isOfficial, int category) {
+    public BasicRace(String raceID, String raceName, String raceType, LocalDate raceDate, int miles,
+                     int registrationLimit, LocalDate lastRegistrationDate) {
         this.raceID = raceID;
         this.raceName = raceName;
         this.raceType = raceType;
@@ -26,22 +24,22 @@ public class BasicRace implements RaceComponent{
         this.miles = miles;
         this.registrationLimit = registrationLimit;
         this.lastRegistrationDate = lastRegistrationDate;
-        this.isOfficial = isOfficial;
-        this.category = category;
         this.registeredRacers = 0;
+        this.raceRegistration = new HashMap<>();
     }
 
     public BasicRace(){
         this.raceID = "iAMspeed";
         this.raceName = "Kachow";
         this.raceType = "Basic";
-        this.raceDate = null;
+        LocalDate now = LocalDate.now();
+        this.raceDate = now.plusDays(30);
         this.miles = 3;
         this.registrationLimit = 2;
-        this.lastRegistrationDate = null;
-        this.isOfficial = false;
-        this.category = 5;
+        LocalDate today = LocalDate.now();
+        this.lastRegistrationDate = today.plusDays(14);
         this.registeredRacers = 0;
+        raceRegistration = new HashMap<>();
     }
 
     @Override
@@ -67,7 +65,9 @@ public class BasicRace implements RaceComponent{
     }
 
     public void registerRacer(Racer racer) {
-        raceRegistration = new Registration(this, racer);
+        Registration newReg = new Registration(this, racer);
+        newReg.processPayment();
+        raceRegistration.put(newReg.getRegID(), newReg);
         trackRegistration();
     }
 
