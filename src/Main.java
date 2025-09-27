@@ -2,6 +2,7 @@ import Race.BasicRace;
 import Race.Decorator.CategoryDecorator;
 import Race.Decorator.OfficialRaceDecorator;
 import Race.RaceComponent;
+import Race.RegistrationNotifier;
 import Users.*;
 import java.util.Scanner;
 
@@ -46,15 +47,19 @@ public class Main {
             }
 
 
-        //create race
+        // create race
         BasicRace testRace = new BasicRace();
+        testRace.addRegistrationListener(new RegistrationNotifier());
+
         CategoryDecorator officialTestRace = new CategoryDecorator(new OfficialRaceDecorator(testRace));
         officialTestRace.setCategory(4);
+
         System.out.println(officialTestRace.getDescription());
 
-        //register for race
+        // listener
         testRace.registerRacer((Racer) testRacer, officialTestRace.getCategory());
-        //available spots
+
+        // available spots
         System.out.println(officialTestRace.getAvailableSpots());
 
         sc.close();
