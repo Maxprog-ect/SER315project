@@ -64,8 +64,8 @@ public class BasicRace implements RaceComponent{
         System.out.println("Race Started");
     }
 
-    public void registerRacer(Racer racer) {
-        Registration newReg = new Registration(this, racer);
+    public void registerRacer(Racer racer, int category) {
+        Registration newReg = new Registration(this, racer, category);
         newReg.processPayment();
         raceRegistration.put(newReg.getRegID(), newReg);
         trackRegistration();

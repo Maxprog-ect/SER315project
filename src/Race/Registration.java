@@ -1,5 +1,4 @@
 package Race;
-
 import Users.Racer;
 
 import java.time.LocalDate;
@@ -10,11 +9,21 @@ public class Registration {
     private boolean isPaid;
     private final Racer racer;
 
+
     public Registration(BasicRace race, Racer racer) {
         regID = race.getRaceID() + race.getRaceName() + racer.getName();
         this.racer = racer;
         regDate = LocalDate.now();
         isPaid = false;
+    }
+
+    public Registration(BasicRace race, Racer racer, int category){
+
+            regID = race.getRaceID() + race.getRaceName() + racer.getName();
+            this.racer = racer;
+            regDate = LocalDate.now();
+            isPaid = false;
+
     }
 
     public void processPayment(){

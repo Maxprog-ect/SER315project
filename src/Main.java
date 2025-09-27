@@ -49,11 +49,11 @@ public class Main {
         //create race
         BasicRace testRace = new BasicRace();
         CategoryDecorator officialTestRace = new CategoryDecorator(new OfficialRaceDecorator(testRace));
-        officialTestRace.setCategory(5);
+        officialTestRace.setCategory(4);
         System.out.println(officialTestRace.getDescription());
 
         //register for race
-        testRace.registerRacer((Racer) testRacer);
+        testRace.registerRacer((Racer) testRacer, officialTestRace.getCategory());
         //available spots
         System.out.println(officialTestRace.getAvailableSpots());
         
