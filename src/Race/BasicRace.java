@@ -55,7 +55,7 @@ public class BasicRace implements RaceComponent{
 
     @Override
     public int getAvailableSpots() {
-        return registeredRacers;
+        return registrationLimit - registeredRacers;
     }
 
     @Override
@@ -65,5 +65,12 @@ public class BasicRace implements RaceComponent{
 
     public void trackRegistration(){
         registeredRacers++;
+    }
+
+    public String getRaceID() {
+        return raceID;
+    }
+    public String getRaceName() {
+        return raceName;
     }
 }

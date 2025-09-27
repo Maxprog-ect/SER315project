@@ -2,21 +2,21 @@ package Race;
 
 import Users.Racer;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Registration {
     private final String regID;
-    private LocalTime regDate;
+    private LocalDate regDate;
     private boolean isPaid;
     private final Racer racer;
 
-    public Registration(String raceID, Racer racer){
+    public Registration(BasicRace race, Racer racer) {
+        regID = race.getRaceID() + race.getRaceName() + racer.getName();
         this.racer = racer;
-        this.regID = raceID + racer.getName();
-        this.regDate = LocalTime.now();
-        this.isPaid = false;
+        regDate = LocalDate.now();
+        isPaid = false;
     }
-
 
     public void processPayment(){
         System.out.println("Processing Payment for Race ");
