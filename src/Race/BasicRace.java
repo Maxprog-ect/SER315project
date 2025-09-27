@@ -67,7 +67,6 @@ public class BasicRace implements RaceComponent {
         System.out.println("Race Started");
     }
 
-    // ✅ Unified single method with listener notification
     public void registerRacer(Racer racer, int category) {
         Registration newReg = new Registration(this, racer, category);
         newReg.processPayment();
