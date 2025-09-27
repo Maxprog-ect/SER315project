@@ -1,5 +1,5 @@
 package Users;
 
 public interface UserFactory {
-    User createUser(String name,String email, String password);
+    User createUser(String name, String email, String password);
 }

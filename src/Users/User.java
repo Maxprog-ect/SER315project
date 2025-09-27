@@ -9,8 +9,16 @@ public abstract class User {
     private String password;
     private LocalDateTime createdAt;
 
+    public User(String userID, String name, String email, String password) {
+        this.userID = userID;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        createdAt = LocalDateTime.now();
+    }
+
     public boolean login(String username, String password) {
-        return (username.equals(this.name) && password.equals(this.password));
+        return (username.equals(this.email) && password.equals(this.password));
     }
 
     public void logout() {}
