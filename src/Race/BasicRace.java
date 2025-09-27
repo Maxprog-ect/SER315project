@@ -1,5 +1,7 @@
 package Race;
 
+import Users.Racer;
+
 import java.time.LocalTime;
 
 public class BasicRace implements RaceComponent{
@@ -13,6 +15,7 @@ public class BasicRace implements RaceComponent{
     private boolean isOfficial;
     private final int category;
     private int registeredRacers;
+    private Registration raceRegistration;
 
     public BasicRace(String raceID, String raceName, String raceType, LocalTime raceDate, int miles,
                      int registrationLimit, LocalTime lastRegistrationDate, boolean isOfficial, int category) {
@@ -45,7 +48,7 @@ public class BasicRace implements RaceComponent{
     public String getDescription() {
         return "Race ID: " + raceID + "\n" + "Race Name: " + raceName + "\n" + "Race Type: " + raceType + "\n" +
                 "Distance: " + miles + "\n" + "Registration Limit: " + registrationLimit + "\n" + "Last Registration Date: "
-                + lastRegistrationDate + "\n" + "Official: " + isOfficial + "\n" + "Category: " + category;
+                + lastRegistrationDate + "\n";
     }
 
     @Override
@@ -61,6 +64,11 @@ public class BasicRace implements RaceComponent{
     @Override
     public void startRace() {
         System.out.println("Race Started");
+    }
+
+    public void registerRacer(Racer racer) {
+        raceRegistration = new Registration(this, racer);
+        trackRegistration();
     }
 
     public void trackRegistration(){
