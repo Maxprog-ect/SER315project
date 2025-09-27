@@ -56,7 +56,8 @@ public class Main {
         testRace.registerRacer((Racer) testRacer);
         //available spots
         System.out.println(officialTestRace.getAvailableSpots());
-        
+
+        sc.close();
 
     }
 }
