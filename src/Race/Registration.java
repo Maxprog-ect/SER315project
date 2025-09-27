@@ -3,7 +3,6 @@ package Race;
 import Users.Racer;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class Registration {
     private final String regID;

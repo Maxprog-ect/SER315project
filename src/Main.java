@@ -34,13 +34,22 @@ public class Main {
            break;
         }
         //license for racer
-        RacerLicense testLicense = new RacerLicense((Racer) testRacer);
-        System.out.println(testLicense.getLicenseID() + " " + testLicense.getExpiryDate());
+            System.out.println("Do you need a license? (y/n)");
+            String license = sc.nextLine();
+            if (license.equalsIgnoreCase("y")) {
+                RacerLicense testLicense = new RacerLicense((Racer) testRacer);
+                System.out.println(testLicense.getLicenseID() + " " + testLicense.getExpiryDate());
+            }else if (license.equalsIgnoreCase("n")) {
+                System.out.println("Let's register for a race!");
+            }else {
+                System.out.println("Invalid answer");
+            }
+
 
         //create race
         BasicRace testRace = new BasicRace();
         CategoryDecorator officialTestRace = new CategoryDecorator(new OfficialRaceDecorator(testRace));
-        officialTestRace.setCategory(4);
+        officialTestRace.setCategory(5);
         System.out.println(officialTestRace.getDescription());
 
         //register for race

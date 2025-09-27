@@ -37,4 +37,7 @@ public class RacerLicense {
     public Racer getRacer() {
         return racer;
     }
+    public void setCategory(int category) {
+        this.category = category;
+    }
 }
