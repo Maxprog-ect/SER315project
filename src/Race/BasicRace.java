@@ -3,8 +3,10 @@ package Race;
 import Users.Racer;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
-public class BasicRace implements RaceComponent{
+public class BasicRace implements RaceComponent {
     private final String raceID;
     private final String raceName;
     private final String raceType;
@@ -14,6 +16,7 @@ public class BasicRace implements RaceComponent{
     private final LocalDate lastRegistrationDate;
     private int registeredRacers;
     private HashMap<String, Registration> raceRegistration;
+    private List<RegistrationListener> listeners = new ArrayList<>();
 
     public BasicRace(String raceID, String raceName, String raceType, LocalDate raceDate, int miles,
                      int registrationLimit, LocalDate lastRegistrationDate) {
@@ -64,11 +67,14 @@ public class BasicRace implements RaceComponent{
         System.out.println("Race Started");
     }
 
+    // ✅ Unified single method with listener notification
     public void registerRacer(Racer racer, int category) {
         Registration newReg = new Registration(this, racer, category);
         newReg.processPayment();
         raceRegistration.put(newReg.getRegID(), newReg);
         trackRegistration();
+
+        notifyRegistrationListeners(newReg);
     }
 
     public void trackRegistration(){
@@ -80,5 +86,15 @@ public class BasicRace implements RaceComponent{
     }
     public String getRaceName() {
         return raceName;
+    }
+
+    public void addRegistrationListener(RegistrationListener listener) {
+        listeners.add(listener);
+    }
+
+    private void notifyRegistrationListeners(Registration registration) {
+        for (RegistrationListener listener : listeners) {
+            listener.onRegistrationComplete(registration);
+        }
     }
 }
