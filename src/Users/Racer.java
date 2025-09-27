@@ -24,6 +24,7 @@ public class Racer extends User {
             return;
         }else{
             setCategory(category-1);
+            racerLicense.setCategory(category-1);
         }
     }
     public RacerLicense setRacerLicense(){
