@@ -1,4 +1,6 @@
+import Race.Decorator.RaceDecorator;
 import Users.*;
+import Race.*;
 import java.util.Scanner;
 
 public class Main {
@@ -11,6 +13,9 @@ public class Main {
         UserFactory racerFactory = new RacerFactory();
 
         User testRacer = racerFactory.createUser("John Doe", "Doe@yahoo.com", "password1234");
+        BasicRace testRace = new BasicRace();
+        testRace = new RaceDecorator(testRace);
+
 
         do {
             System.out.println();
@@ -27,7 +32,7 @@ public class Main {
         System.out.println("login successful");
 
         while (running) {
-           break;
+
         }
 
     }
