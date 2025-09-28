@@ -19,6 +19,7 @@ public class OfficialRaceDecorator extends RaceDecorator{
         }
         return description;
     }
+
     public double getCost(){
         return 25.0;
     }

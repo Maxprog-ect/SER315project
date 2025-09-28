@@ -99,6 +99,7 @@ public class BasicRace implements RaceComponent {
     public String getRaceID() {
         return raceID;
     }
+
     public String getRaceName() {
         return raceName;
     }

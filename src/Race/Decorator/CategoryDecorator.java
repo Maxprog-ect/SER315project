@@ -1,4 +1,8 @@
+/**
+ * A class for wrapping race objects with a category
+ */
 package Race.Decorator;
+
 
 import Race.RaceComponent;
 

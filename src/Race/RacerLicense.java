@@ -19,31 +19,39 @@ public class RacerLicense {
         expiryDate = LocalDate.now().plusDays(365);
         category = racer.getCategory();
     }
+
     public boolean isValid() {
         LocalDate now = LocalDate.now();
         return now.isBefore(expiryDate);
     }
+
     public int checkLicenseValid() {
         if (!isValid()) {
             return -1;
         }
         return 0;
     }
+
     public String getLicenseID() {
         return licenseID;
     }
+
     public int getCategory() {
         return category;
     }
+
     public LocalDate getIssueDate() {
         return issueDate;
     }
+
     public LocalDate getExpiryDate() {
         return expiryDate;
     }
+
     public Racer getRacer() {
         return racer;
     }
+
     public void setCategory(int category) {
         this.category = category;
     }

@@ -27,7 +27,6 @@ public class Registration {
     }
 
     public String notifyRacer(){
-
         if (isPaid) {
             return regID + ": registration successful";
         } else {
