@@ -24,4 +24,6 @@ public interface RaceComponent{
      */
     public void startRace();
 
+    public boolean isOfficial();
+
 }

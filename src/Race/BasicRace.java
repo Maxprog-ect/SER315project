@@ -17,6 +17,7 @@ public class BasicRace implements RaceComponent {
     private int registeredRacers;
     private HashMap<String, Registration> raceRegistration;
     private List<RegistrationListener> listeners = new ArrayList<>();
+    private boolean isOfficial = false;
 
     public BasicRace(String raceID, String raceName, String raceType, LocalDate raceDate, int miles,
                      int registrationLimit, LocalDate lastRegistrationDate) {
@@ -32,8 +33,8 @@ public class BasicRace implements RaceComponent {
     }
 
     public BasicRace(){
-        this.raceID = "iAMspeed";
-        this.raceName = "Kachow";
+        this.raceID = "3728";
+        this.raceName = "iAMSpeed";
         this.raceType = "Basic";
         LocalDate now = LocalDate.now();
         this.raceDate = now.plusDays(30);
@@ -68,28 +69,51 @@ public class BasicRace implements RaceComponent {
     }
 
     public void registerRacer(Racer racer, int category) {
-        if(racer.getRacerLicense() == null){
-            System.out.println("ERROR: Racer does not have a license.");
-            return;
-        }else if(racer.getRacerLicense().checkLicenseValid() == -1) {
-            System.out.println("ERROR: License for Racer " + racer.getName() + " is invalid.");
-            return;
+        //check if racer is already registered
+        if(racer.getRacerLicense() != null) {
+            //official race key
+            String key = getRaceName() + racer.getRacerLicense().getLicenseID();
+            if (raceRegistration.containsKey(key)) {
+                System.out.println("ERROR: You cannot register more than once per race");
+                return;
+            }
+        }else{
+            //unofficial race key
+            String key = racer.getName() + " " + getRaceName();
+            if (raceRegistration.containsKey(key)) {
+                System.out.println("ERROR: You cannot register more than once per race");
+                return;
+            }
+        }
+        if(isOfficial()) {
+            //check racer category
+            if (racer.getCategory() != category) {
+                System.out.println("ERROR: Racer does not have correct category");
+                return;
+            }
+            //check license
+            if(racer.getRacerLicense() == null){
+                System.out.println("ERROR: Racer does not have a license.");
+                return;
+            }else if(racer.getRacerLicense().checkLicenseValid() == -1) {
+                System.out.println("ERROR: License for Racer " + racer.getName() + " is invalid.");
+                return;
+            }
         }
 
+        //check registration limit
         if (registeredRacers >= registrationLimit) {
             System.out.println("ERROR: Cannot complete registration -- race is full.");
             return;
         }
-        if(racer.getCategory() != category) {
-            System.out.println("ERROR: Racer does not have correct category");
-            return;
-        }
-            Registration newReg = new Registration(this, racer, category);
-            newReg.processPayment();
-            raceRegistration.put(newReg.getRegID(), newReg);
-            trackRegistration();
 
-            notifyRegistrationListeners(newReg);
+        //register racer
+        Registration newReg = new Registration(this, racer, category);
+        newReg.processPayment();
+        raceRegistration.put(newReg.getRegID(), newReg);
+        trackRegistration();
+
+        notifyRegistrationListeners(newReg);
     }
 
     public void trackRegistration(){
@@ -112,5 +136,12 @@ public class BasicRace implements RaceComponent {
         for (RegistrationListener listener : listeners) {
             listener.onRegistrationComplete(registration);
         }
+    }
+    @Override
+    public boolean isOfficial(){
+        return isOfficial;
+    }
+    public void setOfficial(boolean isOfficial) {
+        this.isOfficial = isOfficial;
     }
 }

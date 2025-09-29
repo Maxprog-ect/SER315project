@@ -6,18 +6,26 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 public class Registration {
-    private final String regID;
+    private String regID = "";
     private LocalDate regDate;
     private boolean isPaid;
-    private final Racer racer;
-    private final int category;
+    private Racer racer = null;
+    private int category = 0;
 
     public Registration(BasicRace race, Racer racer, int category) {
-        this.regID = race.getRaceID() + race.getRaceName() + racer.getName();
-        this.racer = racer;
-        this.regDate = LocalDate.now();
-        this.isPaid = false;
-        this.category = category;
+        if(race.isOfficial()) {
+            this.regID = race.getRaceName() + racer.getRacerLicense().getLicenseID();
+            this.racer = racer;
+            this.regDate = LocalDate.now();
+            this.isPaid = false;
+            this.category = category;
+        }else{
+            this.regID = racer.getName() + " " + race.getRaceName();
+            this.racer = racer;
+            this.regDate = LocalDate.now();
+            this.isPaid = false;
+            this.category = category;
+        }
     }
 
     public void processPayment(){

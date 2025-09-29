@@ -1,9 +1,11 @@
 import Race.BasicRace;
-import Race.Decorator.CategoryDecorator;
 import Race.Decorator.OfficialRaceDecorator;
 import Race.RacerLicense;
 import Race.RegistrationNotifier;
 import Users.*;
+
+import java.time.LocalDate;
+
 import java.util.Scanner;
 
 public class Main {
@@ -22,8 +24,19 @@ public class Main {
         BasicRace testRace = new BasicRace();
         testRace.addRegistrationListener(new RegistrationNotifier());
 
-        CategoryDecorator officialTestRace = new CategoryDecorator(new OfficialRaceDecorator(testRace));
+        OfficialRaceDecorator officialTestRace = new OfficialRaceDecorator(testRace);
         officialTestRace.setCategory(5);
+
+        //create 2nd race
+        BasicRace testRace2 = new BasicRace("ID4Race", "Name4Race", "BASSSE",
+                LocalDate.now().plusDays(45), 6, 10, LocalDate.now().plusDays(20));
+        testRace2.addRegistrationListener(new RegistrationNotifier());
+        OfficialRaceDecorator testRace25 = new OfficialRaceDecorator(testRace2);
+        testRace25.setCategory(4);
+
+        //create unofficial race
+        BasicRace testRace3 = new BasicRace();
+        testRace3.addRegistrationListener(new RegistrationNotifier());
 
         do {
             System.out.println();
@@ -50,18 +63,31 @@ public class Main {
                 case 1:
                     System.out.println("Which race do you want to register for?\n");
                     System.out.println( "1: " +  officialTestRace.getDescription());
+                    System.out.println( "2: " +  testRace25.getDescription());
+                    System.out.println( "3: " +  testRace3.getDescription());
                     System.out.print( "Choose race: ");
                     int race = sc.nextInt();
 
                     if (race == 1) {
                         // listener
                         testRace.registerRacer((Racer) testRacer, officialTestRace.getCategory());
-                    }
 
-                    // available spots
-                    System.out.println("Available spots in Race:");
-                    System.out.println(officialTestRace.getAvailableSpots());
-                    System.out.println();
+                        // available spots
+                        System.out.println("Available spots in Race:");
+                        System.out.println(officialTestRace.getAvailableSpots());
+                        System.out.println();
+                    }else if (race == 2) {
+                        testRace2.registerRacer((Racer) testRacer, testRace25.getCategory());
+                        // available spots
+                        System.out.println("Available spots in Race:");
+                        System.out.println(testRace2.getAvailableSpots());
+                        System.out.println();
+                    }else if (race == 3) {
+                        testRace3.registerRacer((Racer) testRacer, testRace25.getCategory());
+                        System.out.println("Available spots in Race:");
+                        System.out.println(testRace3.getAvailableSpots());
+                        System.out.println();
+                    }
 
                     break;
 
@@ -72,8 +98,13 @@ public class Main {
                     String license = sc.nextLine();
 
                     if (license.equalsIgnoreCase("y")) {
-                        RacerLicense testLicense = ((Racer)testRacer).setRacerLicense();
-                        System.out.println("License made: " + testLicense.getLicenseID() + " " + testLicense.getExpiryDate() + "\n");
+                        //check racer needs license
+                        if((((Racer)testRacer).getRacerLicense() == null)|| (((Racer)testRacer).getRacerLicense().checkLicenseValid() == -1)) {
+                            RacerLicense testLicense = ((Racer) testRacer).setRacerLicense();
+                            System.out.println("License made: " + testLicense.getLicenseID() + " " + testLicense.getExpiryDate() + "\n");
+                        }else{
+                            System.out.println("Racer already has a valid license\n");
+                        }
                     } else if (license.equalsIgnoreCase("n")) {
                         System.out.println("Let's register for a race!\n");
                     } else {
