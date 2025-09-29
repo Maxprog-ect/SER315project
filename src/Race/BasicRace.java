@@ -68,18 +68,27 @@ public class BasicRace implements RaceComponent {
         System.out.println("Race Started");
     }
 
+    @Override
+    public boolean isOfficial(){
+        return isOfficial;
+    }
+    public void setOfficial(boolean isOfficial) {
+        this.isOfficial = isOfficial;
+    }
+
     public void registerRacer(Racer racer, int category) {
         //check if racer is already registered
+        String key;
         if(racer.getRacerLicense() != null) {
             //official race key
-            String key = getRaceName() + racer.getRacerLicense().getLicenseID();
+            key = getRaceName() + racer.getRacerLicense().getLicenseID();
             if (raceRegistration.containsKey(key)) {
                 System.out.println("ERROR: You cannot register more than once per race");
                 return;
             }
         }else{
             //unofficial race key
-            String key = racer.getName() + " " + getRaceName();
+            key = racer.getName() + " " + getRaceName();
             if (raceRegistration.containsKey(key)) {
                 System.out.println("ERROR: You cannot register more than once per race");
                 return;
@@ -116,17 +125,6 @@ public class BasicRace implements RaceComponent {
         notifyRegistrationListeners(newReg);
     }
 
-    public void trackRegistration(){
-        registeredRacers++;
-    }
-
-    public String getRaceID() {
-        return raceID;
-    }
-
-    public String getRaceName() {
-        return raceName;
-    }
 
     public void addRegistrationListener(RegistrationListener listener) {
         listeners.add(listener);
@@ -137,11 +135,16 @@ public class BasicRace implements RaceComponent {
             listener.onRegistrationComplete(registration);
         }
     }
-    @Override
-    public boolean isOfficial(){
-        return isOfficial;
+
+    public void trackRegistration(){
+        registeredRacers++;
     }
-    public void setOfficial(boolean isOfficial) {
-        this.isOfficial = isOfficial;
+
+    public String getRaceID() {
+        return raceID;
+    }
+
+    public String getRaceName() {
+        return raceName;
     }
 }

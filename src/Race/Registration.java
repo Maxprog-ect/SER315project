@@ -36,9 +36,9 @@ public class Registration {
 
     public String notifyRacer(){
         if (isPaid) {
-            return regID + ": registration successful";
+            return "Registration successful";
         } else {
-            return regID + ": payment needed";
+            return "Payment needed";
         }
     }
 

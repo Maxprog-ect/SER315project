@@ -14,7 +14,7 @@ public class RacerLicense {
 
     public RacerLicense(Racer racer){
         this.racer = racer;
-        licenseID = racer.getName()  + "_Kachow";
+        licenseID = racer.getName()  + "_M8R";
         issueDate = LocalDate.now();
         expiryDate = LocalDate.now().plusDays(365);
         category = racer.getCategory();
