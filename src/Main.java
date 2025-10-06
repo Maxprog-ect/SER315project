@@ -1,11 +1,11 @@
-import race.BasicRace;
-import race.decorator.OfficialRaceDecorator;
-import race.RacerLicense;
-import race.RegistrationNotifier;
-import users.*;
+import Race.BasicRace;
+import Race.Decorator.OfficialRaceDecorator;
+import Race.RacerLicense;
+import Race.RegistrationNotifier;
+import Users.*;
 
 import java.time.LocalDate;
-
+import java.time.LocalTime;
 import java.util.Scanner;
 
 public class Main {
@@ -28,7 +28,7 @@ public class Main {
         officialTestRace.setCategory(5);
 
         //create 2nd race
-        BasicRace testRace2 = new BasicRace("ID4Race", "Name4Race", "Gravel",
+        BasicRace testRace2 = new BasicRace("ID4Race", "Name4Race", "BASSSE",
                 LocalDate.now().plusDays(45), 6, 10, LocalDate.now().plusDays(20));
         testRace2.addRegistrationListener(new RegistrationNotifier());
         OfficialRaceDecorator testRace25 = new OfficialRaceDecorator(testRace2);
@@ -98,13 +98,8 @@ public class Main {
                     String license = sc.nextLine();
 
                     if (license.equalsIgnoreCase("y")) {
-                        //check racer needs license
-                        if((((Racer)testRacer).getRacerLicense() == null)|| (((Racer)testRacer).getRacerLicense().checkLicenseValid() == -1)) {
-                            RacerLicense testLicense = ((Racer) testRacer).setRacerLicense();
-                            System.out.println("License made: " + testLicense.getLicenseID() + " " + testLicense.getExpiryDate() + "\n");
-                        }else{
-                            System.out.println("Racer already has a valid license\n");
-                        }
+                        RacerLicense testLicense = ((Racer)testRacer).setRacerLicense();
+                        System.out.println("License made: " + testLicense.getLicenseID() + " " + testLicense.getExpiryDate() + "\n");
                     } else if (license.equalsIgnoreCase("n")) {
                         System.out.println("Let's register for a race!\n");
                     } else {
