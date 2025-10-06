@@ -1,6 +1,6 @@
-package Race.Decorator;
+package race.decorator;
 
-import Race.RaceComponent;
+import race.RaceComponent;
 
 public abstract class RaceDecorator implements RaceComponent{
     private RaceComponent decoratedRace;

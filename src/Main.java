@@ -1,8 +1,8 @@
-import Race.BasicRace;
-import Race.Decorator.OfficialRaceDecorator;
-import Race.RacerLicense;
-import Race.RegistrationNotifier;
-import Users.*;
+import race.BasicRace;
+import race.decorator.OfficialRaceDecorator;
+import race.RacerLicense;
+import race.RegistrationNotifier;
+import users.*;
 
 import java.time.LocalDate;
 
@@ -28,7 +28,7 @@ public class Main {
         officialTestRace.setCategory(5);
 
         //create 2nd race
-        BasicRace testRace2 = new BasicRace("ID4Race", "Name4Race", "BASSSE",
+        BasicRace testRace2 = new BasicRace("ID4Race", "Name4Race", "Gravel",
                 LocalDate.now().plusDays(45), 6, 10, LocalDate.now().plusDays(20));
         testRace2.addRegistrationListener(new RegistrationNotifier());
         OfficialRaceDecorator testRace25 = new OfficialRaceDecorator(testRace2);

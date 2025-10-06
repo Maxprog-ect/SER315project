@@ -1,4 +1,4 @@
-package Race;
+package race;
 
 public interface RaceComponent{
     /**

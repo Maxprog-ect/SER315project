@@ -1,8 +1,6 @@
-package Race.Decorator;
+package race.decorator;
 
-import Race.BasicRace;
-import Race.RaceComponent;
-import Users.Racer;
+import race.BasicRace;
 
 //combined official & category, category only applies to official races
 
@@ -21,7 +19,7 @@ public class OfficialRaceDecorator extends RaceDecorator{
     public String getDescription(){
         String description = "ERROR: Invalid Race";
         if(isOfficial){
-            description = "Official Category " + category + " Race\n" + super.getDescription();
+            description = "Official Category " + category + " race\n" + super.getDescription();
         }else{
             description = "Unofficial Race\n" + super.getDescription();
         }

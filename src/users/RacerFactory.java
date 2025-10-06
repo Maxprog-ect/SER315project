@@ -1,7 +1,7 @@
 /**
  * a concrete factory that creates racers
  */
-package Users;
+package users;
 
 public class RacerFactory implements UserFactory {
     int id; //used to create a userid for the racer

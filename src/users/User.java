@@ -1,7 +1,7 @@
 /**
  * abstract product, User, that specifies the behavior of Users
  */
-package Users;
+package users;
 
 import java.time.LocalDateTime;
 

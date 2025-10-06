@@ -1,8 +1,8 @@
 /**
  * A concrete product, Racer, that extends the abstract user class
  */
-package Users;
-import Race.RacerLicense;
+package users;
+import race.RacerLicense;
 
 public class Racer extends User {
     private RacerLicense racerLicense;

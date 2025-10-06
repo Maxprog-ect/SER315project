@@ -1,6 +1,6 @@
-package Race;
+package race;
 
-import Users.Racer;
+import users.Racer;
 
 import java.time.LocalDate;
 
