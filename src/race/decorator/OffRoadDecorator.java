@@ -1,6 +1,6 @@
-package Race.Decorator;
+package race.decorator;
 
-import Race.BasicRace;
+import race.BasicRace;
 
 public class OffRoadDecorator extends RaceDecorator {
 

@@ -1,9 +1,9 @@
-package Race;
+package race;
 
-import Race.Registration.RaceWaiver;
-import Race.Registration.Registration;
-import Race.Registration.RegistrationListener;
-import Users.Racer;
+import race.registration.RaceWaiver;
+import race.registration.Registration;
+import race.registration.RegistrationListener;
+import users.Racer;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.ArrayList;

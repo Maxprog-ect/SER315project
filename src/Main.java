@@ -1,9 +1,9 @@
-import Race.BasicRace;
-import Race.Decorator.OffRoadDecorator;
-import Race.Decorator.OfficialRaceDecorator;
-import Race.RacerLicense;
-import Race.Registration.RegistrationNotifier;
-import Users.*;
+import race.BasicRace;
+import race.decorator.OffRoadDecorator;
+import race.decorator.OfficialRaceDecorator;
+import race.RacerLicense;
+import race.registration.RegistrationNotifier;
+import users.*;
 
 import java.time.LocalDate;
 

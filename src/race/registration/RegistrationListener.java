@@ -1,4 +1,4 @@
-package Race.Registration;
+package race.registration;
 
 public interface RegistrationListener {
     void onRegistrationComplete(Registration registration);

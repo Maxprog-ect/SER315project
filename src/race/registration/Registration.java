@@ -1,6 +1,6 @@
-package Race.Registration;
-import Race.BasicRace;
-import Users.Racer;
+package race.registration;
+import race.BasicRace;
+import users.Racer;
 
 import java.time.LocalDate;
 

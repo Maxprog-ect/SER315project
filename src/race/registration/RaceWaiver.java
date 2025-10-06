@@ -1,4 +1,4 @@
-package Race.Registration;
+package race.registration;
 
 public class RaceWaiver {
     boolean isSigned;
