@@ -1,5 +1,8 @@
 package Race;
 
+import Race.Registration.RaceWaiver;
+import Race.Registration.Registration;
+import Race.Registration.RegistrationListener;
 import Users.Racer;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -9,7 +12,7 @@ import java.util.List;
 public class BasicRace implements RaceComponent {
     private final String raceID;
     private final String raceName;
-    private final String raceType;
+    private  String raceType;
     private final LocalDate raceDate;
     private final int miles;
     private final int registrationLimit;
@@ -18,6 +21,7 @@ public class BasicRace implements RaceComponent {
     private HashMap<String, Registration> raceRegistration;
     private List<RegistrationListener> listeners = new ArrayList<>();
     private boolean isOfficial = false;
+    private List<RegistrationListener> raceWaiverListeners = new ArrayList<>();
 
     public BasicRace(String raceID, String raceName, String raceType, LocalDate raceDate, int miles,
                      int registrationLimit, LocalDate lastRegistrationDate) {
@@ -33,8 +37,8 @@ public class BasicRace implements RaceComponent {
     }
 
     public BasicRace(){
-        this.raceID = "iAMspeed";
-        this.raceName = "Kachow";
+        this.raceID = "3728";
+        this.raceName = "iAMSpeed";
         this.raceType = "Basic";
         LocalDate now = LocalDate.now();
         this.raceDate = now.plusDays(30);
@@ -68,24 +72,34 @@ public class BasicRace implements RaceComponent {
         System.out.println("Race Started");
     }
 
+    @Override
+    public boolean isOfficial(){
+        return isOfficial;
+    }
+
+    @Override
+    public void setType(String type){
+        raceType = type;
+    }
+    public String getType(){
+        return raceType;
+    }
+    public void setOfficial(boolean isOfficial) {
+        this.isOfficial = isOfficial;
+    }
+
     public void registerRacer(Racer racer, int category) {
-        //check if racer is already registered
-        if(racer.getRacerLicense() != null) {
-            //official race key
-            String key = racer.getName() + racer.getRacerLicense().getLicenseID();
-            if (raceRegistration.containsKey(key)) {
-                System.out.println("ERROR: You cannot register more than once per race");
-                return;
-            }
-        }else{
-            //unofficial race key
-            String key = racer.getName() + "KACHOW";
-            if (raceRegistration.containsKey(key)) {
-                System.out.println("ERROR: You cannot register more than once per race");
-                return;
-            }
-        }
+        String key;
         if(isOfficial()) {
+            //check if racer is already registered
+            if(racer.getRacerLicense() != null) {
+                //official race key
+                key = getRaceName() + racer.getRacerLicense().getLicenseID();
+                if (raceRegistration.containsKey(key)) {
+                    System.out.println("ERROR: You cannot register more than once per race");
+                    return;
+                }
+            }
             //check racer category
             if (racer.getCategory() != category) {
                 System.out.println("ERROR: Racer does not have correct category");
@@ -99,6 +113,14 @@ public class BasicRace implements RaceComponent {
                 System.out.println("ERROR: License for Racer " + racer.getName() + " is invalid.");
                 return;
             }
+        }else{
+            //check if racer is already registered
+            //unofficial race key
+            key = racer.getName() + " " + getRaceName();
+            if (raceRegistration.containsKey(key)) {
+                System.out.println("ERROR: You cannot register more than once per race");
+                return;
+            }
         }
 
         //check registration limit
@@ -107,12 +129,37 @@ public class BasicRace implements RaceComponent {
             return;
         }
 
+        //Racer must have a signed waiver to race
+        notifyWaiverListeners(racer.getRaceWaiver());
+
+        //register racer
         Registration newReg = new Registration(this, racer, category);
         newReg.processPayment();
         raceRegistration.put(newReg.getRegID(), newReg);
         trackRegistration();
 
         notifyRegistrationListeners(newReg);
+    }
+
+
+    public void addRegistrationListener(RegistrationListener listener) {
+        listeners.add(listener);
+    }
+
+    private void notifyRegistrationListeners(Registration registration) {
+        for (RegistrationListener listener : listeners) {
+            listener.onRegistrationComplete(registration);
+        }
+    }
+
+    public void addWaiverListener(RegistrationListener listener) {
+        raceWaiverListeners.add(listener);
+    }
+
+    private void notifyWaiverListeners(RaceWaiver waiver) {
+        for(RegistrationListener w : raceWaiverListeners){
+            w.onWaiverInitiate(waiver);
+        }
     }
 
     public void trackRegistration(){
@@ -125,22 +172,5 @@ public class BasicRace implements RaceComponent {
 
     public String getRaceName() {
         return raceName;
-    }
-
-    public void addRegistrationListener(RegistrationListener listener) {
-        listeners.add(listener);
-    }
-
-    private void notifyRegistrationListeners(Registration registration) {
-        for (RegistrationListener listener : listeners) {
-            listener.onRegistrationComplete(registration);
-        }
-    }
-    @Override
-    public boolean isOfficial(){
-        return isOfficial;
-    }
-    public void setOfficial(boolean isOfficial) {
-        this.isOfficial = isOfficial;
     }
 }

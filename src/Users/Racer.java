@@ -2,16 +2,19 @@
  * A concrete product, Racer, that extends the abstract user class
  */
 package Users;
+import Race.Registration.RaceWaiver;
 import Race.RacerLicense;
 
 public class Racer extends User {
     private RacerLicense racerLicense;
     private int category;
+    private RaceWaiver raceWaiver;
 
     public Racer(String userID, String name, String email, String password) {
         super(userID, name, email, password);
         defaultCategory();
         racerLicense = null;
+        raceWaiver = new RaceWaiver();
     }
 
     /**
@@ -64,5 +67,13 @@ public class Racer extends User {
      */
     public RacerLicense getRacerLicense(){
         return racerLicense;
+    }
+
+    /**
+     * returns race waiver associated with the racer
+     * @return race waiver
+     */
+    public RaceWaiver getRaceWaiver() {
+        return raceWaiver;
     }
 }

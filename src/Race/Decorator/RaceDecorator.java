@@ -24,4 +24,10 @@ public abstract class RaceDecorator implements RaceComponent{
     public void startRace(){
         System.out.println("Starting Race");
     }
+    public void setType(String type){
+        decoratedRace.setType(type);
+    }
+    public boolean isOfficial(){
+        return decoratedRace.isOfficial();
+    }
 }

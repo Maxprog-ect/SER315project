@@ -10,6 +10,7 @@ public class OfficialRaceDecorator extends RaceDecorator{
     boolean isOfficial;
     int category;
 
+
     //Creates an official race with base category 5
     public OfficialRaceDecorator(BasicRace decoratedRace) {
         super(decoratedRace);

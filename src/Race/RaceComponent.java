@@ -24,6 +24,12 @@ public interface RaceComponent{
      */
     public void startRace();
 
+    /**
+     *
+     * @return boolean determining if race is official
+     */
     public boolean isOfficial();
+
+    public void setType(String type);
 
 }
